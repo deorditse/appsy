@@ -15,7 +15,7 @@ class BlocFactory {
 
 
   void initialize() {
-    //initialize DI data layout
+    //initialize DI data_layout
     ServiceProvider.instance.initialize();
 
     //через registerFactory так как каждый раз нужно создавать новую реалтзауию

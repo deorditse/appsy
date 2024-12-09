@@ -13,7 +13,7 @@ class ServiceProvider {
 
   void initialize() {
 
-    ///repositories
+    ///repository
     // _getIt.registerLazySingleton<AuthRepository>(
     //   () => AuthRepositoryImpl(),
     // );

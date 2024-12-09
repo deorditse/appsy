@@ -13,9 +13,12 @@ dependencies:
     path: ../models
   data_layout:
     path: ../data_layout
-
+  flutter_bloc:
+  freezed_annotation:
+  logger:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  build_runner:
+  freezed:
 flutter:
