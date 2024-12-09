@@ -1,0 +1,22 @@
+name: data_layout
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+environment:
+  sdk: ^3.5.4
+  flutter: ">=1.17.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  models:
+    path: ../models
+  get_it:
+  http:
+  logger:
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
