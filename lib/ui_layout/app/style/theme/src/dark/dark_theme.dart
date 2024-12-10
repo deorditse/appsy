@@ -23,7 +23,7 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
       appBarTheme: const AppBarTheme(
         surfaceTintColor: Colors.transparent,
       ),
-      colorScheme: ColorScheme.fromSeed(seedColor: MyColors.black),
+      // colorScheme: ColorScheme.fromSeed(seedColor: MyColors.grey),
       primaryColorDark: MyColors.primary,
       dividerTheme: const DividerThemeData(
         color: MyColors.grey,

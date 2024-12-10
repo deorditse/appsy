@@ -8,7 +8,8 @@ class MySliverAppBar extends StatelessWidget {
     required this.title,
     required this.myContext,
     this.isSearchWidget,
-    this.widgetRight,
+    this.actions,
+    this.leading,
     this.fontSizeAppBar,
     this.backLine = false,
     this.subTitle,
@@ -20,7 +21,7 @@ class MySliverAppBar extends StatelessWidget {
 
   final BuildContext myContext;
   final String title;
-  final Widget? widgetRight;
+  final Widget? actions, leading;
   final double? fontSizeAppBar;
   final String? subTitle;
   final VoidCallback? backVoidCallback;
@@ -29,7 +30,7 @@ class MySliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       floating: false,
-      pinned: true,
+      pinned: false,
       // flexibleSpace: FlexibleSpaceBar(
       //   title: Text("Refresh Example"),
       //   background: Image.network(
@@ -41,6 +42,7 @@ class MySliverAppBar extends StatelessWidget {
       automaticallyImplyLeading: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       leadingWidth: 40,
+      leading: leading,
       centerTitle: true,
       expandedHeight: MyUIConst.myToolbarHeight,
       toolbarHeight: MyUIConst.myToolbarHeight,
@@ -67,11 +69,12 @@ class MySliverAppBar extends StatelessWidget {
             ),
         ],
       ),
-      actions: widgetRight != null
+
+      actions: actions != null
           ? [
               Padding(
                 padding: const EdgeInsets.only(right: 12),
-                child: widgetRight,
+                child: actions,
               )
             ]
           : [

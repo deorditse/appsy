@@ -11,7 +11,8 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     super.key,
     this.titleAppBar,
     required this.body,
-    this.widgetRightAppBar,
+    this.actionsAppBar,
+    this.leadingAppBar,
     this.widgetAfterBody,
     this.padding,
     this.primary = true,
@@ -24,14 +25,11 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     this.navigationBar,
   });
 
-  final Widget? appBar;
+  final Widget? appBar, leadingAppBar, actionsAppBar, widgetAfterBody;
   final EdgeInsetsGeometry? padding;
-  final String? titleAppBar;
+  final String? titleAppBar, subTitle;
   final Widget body;
-  final Widget? widgetAfterBody;
-  final Widget? widgetRightAppBar;
   final bool primary;
-  final String? subTitle;
   final Future<void> Function()? callbackTopRefreshIndicator;
   final bool resizeToAvoidBottomInset;
   final GlobalKey<ScaffoldState>? scaffoldKey;
@@ -53,6 +51,7 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     FlutterNativeSplash.remove();
 
     return Scaffold(
+      drawer: Drawer(),
       key: scaffoldKey,
       body: SafeArea(
         child: NestedScrollView(
@@ -63,7 +62,8 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
                   myContext: context,
                   subTitle: subTitle,
                   title: titleAppBar!,
-                  widgetRight: widgetRightAppBar,
+                  leading: leadingAppBar,
+                  actions: actionsAppBar,
                   backVoidCallback: backVoidCallback,
                 ),
               if (appBar != null) appBar!,
