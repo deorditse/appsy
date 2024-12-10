@@ -19,32 +19,38 @@ mixin _$SettingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function(MyLocales newLocale) changeLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
+    TResult? Function(MyLocales newLocale)? changeLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function(MyLocales newLocale)? changeLocale,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitSettingEvent value) init,
+    required TResult Function(_ChangeLocaleSettingEvent value) changeLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitSettingEvent value)? init,
+    TResult? Function(_ChangeLocaleSettingEvent value)? changeLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitSettingEvent value)? init,
+    TResult Function(_ChangeLocaleSettingEvent value)? changeLocale,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -113,6 +119,7 @@ class _$InitSettingEventImpl implements _InitSettingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
+    required TResult Function(MyLocales newLocale) changeLocale,
   }) {
     return init();
   }
@@ -121,6 +128,7 @@ class _$InitSettingEventImpl implements _InitSettingEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
+    TResult? Function(MyLocales newLocale)? changeLocale,
   }) {
     return init?.call();
   }
@@ -129,6 +137,7 @@ class _$InitSettingEventImpl implements _InitSettingEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
+    TResult Function(MyLocales newLocale)? changeLocale,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -141,6 +150,7 @@ class _$InitSettingEventImpl implements _InitSettingEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_InitSettingEvent value) init,
+    required TResult Function(_ChangeLocaleSettingEvent value) changeLocale,
   }) {
     return init(this);
   }
@@ -149,6 +159,7 @@ class _$InitSettingEventImpl implements _InitSettingEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitSettingEvent value)? init,
+    TResult? Function(_ChangeLocaleSettingEvent value)? changeLocale,
   }) {
     return init?.call(this);
   }
@@ -157,6 +168,7 @@ class _$InitSettingEventImpl implements _InitSettingEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitSettingEvent value)? init,
+    TResult Function(_ChangeLocaleSettingEvent value)? changeLocale,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -171,9 +183,153 @@ abstract class _InitSettingEvent implements SettingEvent {
 }
 
 /// @nodoc
+abstract class _$$ChangeLocaleSettingEventImplCopyWith<$Res> {
+  factory _$$ChangeLocaleSettingEventImplCopyWith(
+          _$ChangeLocaleSettingEventImpl value,
+          $Res Function(_$ChangeLocaleSettingEventImpl) then) =
+      __$$ChangeLocaleSettingEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({MyLocales newLocale});
+}
+
+/// @nodoc
+class __$$ChangeLocaleSettingEventImplCopyWithImpl<$Res>
+    extends _$SettingEventCopyWithImpl<$Res, _$ChangeLocaleSettingEventImpl>
+    implements _$$ChangeLocaleSettingEventImplCopyWith<$Res> {
+  __$$ChangeLocaleSettingEventImplCopyWithImpl(
+      _$ChangeLocaleSettingEventImpl _value,
+      $Res Function(_$ChangeLocaleSettingEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SettingEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? newLocale = null,
+  }) {
+    return _then(_$ChangeLocaleSettingEventImpl(
+      newLocale: null == newLocale
+          ? _value.newLocale
+          : newLocale // ignore: cast_nullable_to_non_nullable
+              as MyLocales,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChangeLocaleSettingEventImpl implements _ChangeLocaleSettingEvent {
+  const _$ChangeLocaleSettingEventImpl({required this.newLocale});
+
+  @override
+  final MyLocales newLocale;
+
+  @override
+  String toString() {
+    return 'SettingEvent.changeLocale(newLocale: $newLocale)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeLocaleSettingEventImpl &&
+            (identical(other.newLocale, newLocale) ||
+                other.newLocale == newLocale));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, newLocale);
+
+  /// Create a copy of SettingEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeLocaleSettingEventImplCopyWith<_$ChangeLocaleSettingEventImpl>
+      get copyWith => __$$ChangeLocaleSettingEventImplCopyWithImpl<
+          _$ChangeLocaleSettingEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(MyLocales newLocale) changeLocale,
+  }) {
+    return changeLocale(newLocale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(MyLocales newLocale)? changeLocale,
+  }) {
+    return changeLocale?.call(newLocale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(MyLocales newLocale)? changeLocale,
+    required TResult orElse(),
+  }) {
+    if (changeLocale != null) {
+      return changeLocale(newLocale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitSettingEvent value) init,
+    required TResult Function(_ChangeLocaleSettingEvent value) changeLocale,
+  }) {
+    return changeLocale(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitSettingEvent value)? init,
+    TResult? Function(_ChangeLocaleSettingEvent value)? changeLocale,
+  }) {
+    return changeLocale?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitSettingEvent value)? init,
+    TResult Function(_ChangeLocaleSettingEvent value)? changeLocale,
+    required TResult orElse(),
+  }) {
+    if (changeLocale != null) {
+      return changeLocale(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ChangeLocaleSettingEvent implements SettingEvent {
+  const factory _ChangeLocaleSettingEvent(
+      {required final MyLocales newLocale}) = _$ChangeLocaleSettingEventImpl;
+
+  MyLocales get newLocale;
+
+  /// Create a copy of SettingEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ChangeLocaleSettingEventImplCopyWith<_$ChangeLocaleSettingEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SettingState {
-  bool get isDeveloperMode => throw _privateConstructorUsedError;
-  bool get isViewToolbarPanel => throw _privateConstructorUsedError;
+  Locale get currentLocale => throw _privateConstructorUsedError;
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -188,7 +344,7 @@ abstract class $SettingStateCopyWith<$Res> {
           SettingState value, $Res Function(SettingState) then) =
       _$SettingStateCopyWithImpl<$Res, SettingState>;
   @useResult
-  $Res call({bool isDeveloperMode, bool isViewToolbarPanel});
+  $Res call({Locale currentLocale});
 }
 
 /// @nodoc
@@ -206,18 +362,13 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isDeveloperMode = null,
-    Object? isViewToolbarPanel = null,
+    Object? currentLocale = null,
   }) {
     return _then(_value.copyWith(
-      isDeveloperMode: null == isDeveloperMode
-          ? _value.isDeveloperMode
-          : isDeveloperMode // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isViewToolbarPanel: null == isViewToolbarPanel
-          ? _value.isViewToolbarPanel
-          : isViewToolbarPanel // ignore: cast_nullable_to_non_nullable
-              as bool,
+      currentLocale: null == currentLocale
+          ? _value.currentLocale
+          : currentLocale // ignore: cast_nullable_to_non_nullable
+              as Locale,
     ) as $Val);
   }
 }
@@ -230,7 +381,7 @@ abstract class _$$SettingStateImplCopyWith<$Res>
       __$$SettingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isDeveloperMode, bool isViewToolbarPanel});
+  $Res call({Locale currentLocale});
 }
 
 /// @nodoc
@@ -246,18 +397,13 @@ class __$$SettingStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isDeveloperMode = null,
-    Object? isViewToolbarPanel = null,
+    Object? currentLocale = null,
   }) {
     return _then(_$SettingStateImpl(
-      isDeveloperMode: null == isDeveloperMode
-          ? _value.isDeveloperMode
-          : isDeveloperMode // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isViewToolbarPanel: null == isViewToolbarPanel
-          ? _value.isViewToolbarPanel
-          : isViewToolbarPanel // ignore: cast_nullable_to_non_nullable
-              as bool,
+      currentLocale: null == currentLocale
+          ? _value.currentLocale
+          : currentLocale // ignore: cast_nullable_to_non_nullable
+              as Locale,
     ));
   }
 }
@@ -266,18 +412,15 @@ class __$$SettingStateImplCopyWithImpl<$Res>
 
 class _$SettingStateImpl implements _SettingState {
   const _$SettingStateImpl(
-      {this.isDeveloperMode = false, this.isViewToolbarPanel = false});
+      {this.currentLocale = const Locale.fromSubtags(languageCode: 'ru')});
 
   @override
   @JsonKey()
-  final bool isDeveloperMode;
-  @override
-  @JsonKey()
-  final bool isViewToolbarPanel;
+  final Locale currentLocale;
 
   @override
   String toString() {
-    return 'SettingState(isDeveloperMode: $isDeveloperMode, isViewToolbarPanel: $isViewToolbarPanel)';
+    return 'SettingState(currentLocale: $currentLocale)';
   }
 
   @override
@@ -285,15 +428,12 @@ class _$SettingStateImpl implements _SettingState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SettingStateImpl &&
-            (identical(other.isDeveloperMode, isDeveloperMode) ||
-                other.isDeveloperMode == isDeveloperMode) &&
-            (identical(other.isViewToolbarPanel, isViewToolbarPanel) ||
-                other.isViewToolbarPanel == isViewToolbarPanel));
+            (identical(other.currentLocale, currentLocale) ||
+                other.currentLocale == currentLocale));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isDeveloperMode, isViewToolbarPanel);
+  int get hashCode => Object.hash(runtimeType, currentLocale);
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -305,14 +445,11 @@ class _$SettingStateImpl implements _SettingState {
 }
 
 abstract class _SettingState implements SettingState {
-  const factory _SettingState(
-      {final bool isDeveloperMode,
-      final bool isViewToolbarPanel}) = _$SettingStateImpl;
+  const factory _SettingState({final Locale currentLocale}) =
+      _$SettingStateImpl;
 
   @override
-  bool get isDeveloperMode;
-  @override
-  bool get isViewToolbarPanel;
+  Locale get currentLocale;
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
