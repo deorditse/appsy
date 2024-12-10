@@ -15,6 +15,7 @@ sealed class MyUIConst {
   static const double textSizeH1 = 48;
 
   // static const double widthDrawer = 250;
+  static const double myToolbarHeight = 40;
 
   static final GlobalKey<ScaffoldMessengerState> snackBarMainKey =
       GlobalKey<ScaffoldMessengerState>();

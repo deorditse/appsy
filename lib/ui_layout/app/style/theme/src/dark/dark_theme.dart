@@ -18,12 +18,13 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
         backgroundColor: Colors.transparent,
       ),
       scaffoldBackgroundColor: MyColors.black,
-      primaryColor: MyColors.green,
-      cardColor: MyColors.white,
-      appBarTheme: const AppBarTheme(surfaceTintColor: Colors.transparent),
-      colorScheme: ColorScheme.fromSeed(seedColor: MyColors.green),
-      primaryColorLight: MyColors.green,
-      primaryColorDark: MyColors.green,
+      primaryColor: MyColors.primary,
+      cardColor: MyColors.blackLight,
+      appBarTheme: const AppBarTheme(
+        surfaceTintColor: Colors.transparent,
+      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: MyColors.black),
+      primaryColorDark: MyColors.primary,
       dividerTheme: const DividerThemeData(
         color: MyColors.grey,
         thickness: 1,
@@ -48,13 +49,13 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
         unselectedLabelColor: Colors.transparent,
         labelPadding: EdgeInsets.only(right: 20),
         indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(width: 4.0, color: MyColors.green),
+          borderSide: BorderSide(width: 4.0, color: MyColors.primary),
           borderRadius: BorderRadius.circular(16),
         ),
       ),
 
       popupMenuTheme: PopupMenuThemeData(
-        color: MyColors.black,
+        color: MyColors.blackLight,
         textStyle: MyTextStyle.I.textStyle(),
         elevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -87,22 +88,18 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
           borderRadius: BorderRadius.circular(8),
         ),
         backgroundColor: MyColors.white,
-        collapsedTextColor: MyColors.black,
-        collapsedIconColor: MyColors.black,
+        collapsedTextColor: MyColors.blackLight,
+        collapsedIconColor: MyColors.blackLight,
       ),
       textButtonTheme: TextButtonThemeData(
         style: const ButtonStyle().copyWith(
-          // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-
-          // backgroundColor: MaterialStatePropertyAll(Colors.green),
-          foregroundColor: WidgetStateProperty.all(MyColors.green),
+          foregroundColor: WidgetStateProperty.all(MyColors.primary),
           textStyle: WidgetStateProperty.all(
             MyTextStyle.I.textStyle(
               fontSize: MyUIConst.textSizeH5,
               newFontWeight: FontWeight.w500,
             ),
           ),
-
           padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 10),
           ),
@@ -111,7 +108,6 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
               borderRadius: BorderRadius.circular(24),
             ),
           ),
-
           shadowColor: const WidgetStatePropertyAll(Colors.red),
           overlayColor: const WidgetStatePropertyAll(Colors.transparent),
         ),
@@ -122,11 +118,16 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
           elevation: WidgetStateProperty.all(0),
 
           padding: WidgetStateProperty.all(
-            const EdgeInsets.all(16),
+            const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 16,
+            ),
           ),
-          backgroundColor: const WidgetStatePropertyAll(MyColors.black),
+          backgroundColor: const WidgetStatePropertyAll(MyColors.primary),
 
-          // foregroundColor: const MaterialStatePropertyAll(_myCardColorLight),
+          foregroundColor: const WidgetStatePropertyAll(
+            MyColors.white,
+          ),
           textStyle: WidgetStateProperty.all(
             MyTextStyle.I.textStyle(
               textColor: MyColors.white,
@@ -142,6 +143,15 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
             ),
           ),
         ),
+      ),
+
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: Colors.transparent,
+
+
+        // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // clipBehavior: Clip.hardEdge,
+        elevation: 0,
       ),
 
       textTheme: _textDark(_themeDark.textTheme),

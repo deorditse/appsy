@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
-import 'package:appsy/ui_layout/shared/ui/my_circular_progress_indicator.dart';
+import 'package:appsy/ui_layout/shared/ui/loading/my_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 
 typedef LibraryLoader = Future<void> Function();

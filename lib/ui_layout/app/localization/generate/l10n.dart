@@ -69,6 +69,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Мои приложения`
+  String get my_apps {
+    return Intl.message(
+      'Мои приложения',
+      name: 'my_apps',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
