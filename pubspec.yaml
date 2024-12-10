@@ -31,6 +31,8 @@ dependencies:
   cached_network_image:
   go_router: ^14.6.2
   cupertino_icons: ^1.0.8
+  logger:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -47,6 +49,22 @@ flutter_intl:
 flutter:
   uses-material-design: true
   generate: true
+
+#  assets:
+#    - assets/fonts/
+  fonts:
+    - family: SBSansText
+      fonts:
+        - asset: assets/fonts/SB Sans Text.ttf
+    - family: SBSansTextMedium
+      fonts:
+        - asset: assets/fonts/SB Sans Text Medium.ttf
+    - family: SBSansTextSemibold
+      fonts:
+        - asset: assets/fonts/SB Sans Text Semibold.ttf
+    - family: SBSansTextBold
+      fonts:
+        - asset: assets/fonts/SB Sans Text Bold.ttf
 
 #flutter pub run flutter_native_splash:create
 flutter_native_splash:

@@ -1,3 +1,5 @@
 enum MyLocales { ru, en }
 
-class ConstApp {}
+sealed class MyConstApp {
+  static bool get isProdMode => false;
+}

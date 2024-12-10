@@ -1,27 +1,46 @@
+import 'package:appsy/ui_layout/app/style/theme/index.dart';
+import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:business_layout/index.dart';
-import 'package:models/index.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'ui_layout/app/config/router/router_config.dart';
+import 'ui_layout/app/config/start_app.dart';
 import 'ui_layout/app/localization/generate/l10n.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  //DI для всех слоев
-  BlocFactory.instance.initialize();
+  await startConfigApp();
   runApp(const _AppsyApp());
 }
 
-class _AppsyApp extends StatelessWidget {
+class _AppsyApp extends StatefulWidget {
   const _AppsyApp({super.key});
 
   @override
+  State<_AppsyApp> createState() => _AppsyAppState();
+}
+
+class _AppsyAppState extends State<_AppsyApp> {
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SettingBloc()..add(SettingEvent.init()),
+    FlutterNativeSplash.remove();
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => SettingBloc()..add(SettingEvent.init()),
+        ),
+      ],
       child: Builder(builder: (context) {
-        return MaterialApp(
+        return MaterialApp.router(
+          title: "Appsy",
+          debugShowCheckedModeBanner: false,
+          theme: themeDark(context),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -39,25 +58,16 @@ class _AppsyApp extends StatelessWidget {
           locale: BlocProvider.of<SettingBloc>(context, listen: true)
               .state
               .currentLocale,
-          home: Builder(builder: (context) {
-            return Scaffold(
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    Text(S.of(context).locale),
-                    ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<SettingBloc>(context).add(
-                          SettingEvent.changeLocale(newLocale: MyLocales.en),
-                        );
-                      },
-                      child: Text('change'),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+          scrollBehavior: const MaterialScrollBehavior().copyWith(
+            dragDevices: {
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.touch,
+              PointerDeviceKind.stylus,
+              PointerDeviceKind.unknown
+            },
+          ),
+          scaffoldMessengerKey: MyUIConst.snackBarMainKey,
+          routerConfig: router,
         );
       }),
     );
