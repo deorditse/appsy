@@ -9,6 +9,7 @@ part 'app_icon_model.g.dart';
 @freezed
 class AppIconModel with _$AppIconModel {
   const factory AppIconModel({
+    required String id,
     required String name,
     required String? iconPath,
     required String url,

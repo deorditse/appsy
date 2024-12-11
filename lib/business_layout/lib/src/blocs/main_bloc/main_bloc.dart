@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:models/index.dart';
@@ -28,9 +27,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         isLoading: false,
         apps: _apps,
       ));
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }
 
@@ -40,14 +37,17 @@ final Set<AppIconModel> _apps = {
     iconPath:
         "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",
     url: "https://mail.yandex.ru/?uid=321242487#inbox",
+    id: "Яндекс почта",
   ),
   AppIconModel(
     name: "Google",
+    id: "Google",
     iconPath:
         "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",
     url: "https://www.google.ru/?hl=ru",
   ),
   AppIconModel(
+    id: "Test",
     name: "Test",
     iconPath:
         "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",

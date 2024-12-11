@@ -1,8 +1,10 @@
+import 'package:models/index.dart';
 import 'package:appsy/ui_layout/shared/layouts/skeletons/material_skeleton_page/material_skeleton_page.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:appsy/ui_layout/pages/main_page/routes.dart' as routes;
+import 'storage/database_app.dart';
 
 class AppPage extends StatelessWidget {
   const AppPage({
@@ -36,8 +38,45 @@ class AppPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: SafeArea(
                 child: Center(
-                  child: MyText(
-                    test + test,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          final res = DBProvider.db.getAllApps();
+                          print(res);
+                        },
+                        child: MyText("getAllApps"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final res = DBProvider.db.addApp(testApp);
+                          print(res);
+                        },
+                        child: MyText("addApp"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final res = DBProvider.db
+                              .updateApp(testApp.copyWith(name: "updateApp"));
+                          print(res);
+                        },
+                        child: MyText("updateApp"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final res = DBProvider.db.deleteApp(testApp.id);
+                          print(res);
+                        },
+                        child: MyText("deleteApp"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final res = DBProvider.db.deleteAll();
+                          print(res);
+                        },
+                        child: MyText("deleteDB"),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -47,6 +86,13 @@ class AppPage extends StatelessWidget {
   }
 }
 
+final testApp = AppIconModel(
+  name: DateTime.now().toString(),
+  iconPath:
+      "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",
+  url: "https://mail.yandex.ru/?uid=321242487#inbox",
+  id: "почта Яндекс",
+);
 final String test = '''
 import 'package:appsy/ui_layout/shared/layouts/skeletons/material_skeleton_page/material_skeleton_page.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';

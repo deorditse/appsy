@@ -1,16 +1,15 @@
-import 'dart:io';
-
+import 'package:models/index.dart';
 import 'package:logger/logger.dart';
 import "package:path/path.dart" as p;
 import 'package:sqflite/sqflite.dart';
-import 'package:models/models.dart';
 
-import 'const.dart';
+const String FILENAME_CLIENT_DB = "Apps.db";
+const String DB_NAME = "APPS";
 
 const String _columnId = 'id';
-const String _columnFirstName = 'firstname';
-const String _columnLastName = 'lastname';
-const String _columnBlocked = 'blocked';
+const String _columnName = 'name';
+const String _columnIconPath = 'iconPath';
+const String _columnUrl = 'url';
 
 class DBProvider {
   //1. Создадим приватный конструктор,
@@ -24,19 +23,22 @@ class DBProvider {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await initDB();
+    await _initDB();
     return _database!;
   }
 
-  Future<String> getDBPath() async {
+  Future<String> _getDBPath() async {
     var databasesPath = await getDatabasesPath();
-    return p.join(databasesPath, DBConst.FILENAME_CLIENT_DB);
+    final res = p.join("$databasesPath/Apps/", FILENAME_CLIENT_DB);
+    Logger().log(Level.info, "_getDBPath path: $res");
+
+    return res;
   }
 
-  Future<Database> initDB({bool isDelete = false}) async {
- final String path = await getDBPath();
+  Future<void> _initDB() async {
+    final String path = await _getDBPath();
 
-    return await openDatabase(
+    _database = await openDatabase(
       path,
       version: 1,
       singleInstance: true,
@@ -44,92 +46,78 @@ class DBProvider {
         Logger().log(Level.info, "open db $db");
       },
       onCreate: (Database db, int version) async {
-        await db.execute('''CREATE TABLE ${DBConst.CLIENT_DB} (
-            $_columnId INTEGER PRIMARY KEY,
-            $_columnFirstName TEXT,
-            $_columnLastName TEXT,
-            $_columnBlocked INTEGER
+        await db.execute('''CREATE TABLE $DB_NAME (
+            $_columnId TEXT,
+            $_columnName TEXT,
+            $_columnIconPath TEXT,
+            $_columnUrl INTEGER
             )''');
       },
     );
   }
 
   Future<void> deleteDB() async {
-    final String path = await getDBPath();
+    final String path = await _getDBPath();
 
     await deleteDatabase(path);
   }
 
-  Future<int> newClient(ClientModel newClient) async {
+  Future<int> addApp(AppIconModel app) async {
     final db = await database;
     return await db.rawInsert(
-        '''INSERT INTO ${DBConst.CLIENT_DB} ($_columnId,$_columnFirstName,$_columnLastName,$_columnBlocked) VALUES (?,?,?,?)''',
+        '''INSERT INTO $DB_NAME ($_columnId,$_columnName,$_columnIconPath,$_columnUrl) VALUES (?,?,?,?)''',
         [
-          newClient.id,
-          newClient.firstname,
-          newClient.lastname,
-          newClient.blocked,
+          app.id,
+          app.name,
+          app.iconPath,
+          app.url,
         ]);
   }
 
-  Future<ClientModel?> getClient(int id) async {
+  Future<AppIconModel?> getApp(int id) async {
     final db = await database;
-    final List<Map<String, Object?>> res = await db
-        .query(DBConst.CLIENT_DB, where: "$_columnId = ?", whereArgs: [id]);
+    final List<Map<String, Object?>> res =
+        await db.query(DB_NAME, where: "$_columnId = ?", whereArgs: [id]);
     if (res.isEmpty) return null;
 
-    return ClientModel.fromJson(res.first);
+    return AppIconModel.fromJson(res.first);
   }
 
-  Future<List<ClientModel>> getAllClients() async {
+  Future<Set<AppIconModel>> getAllApps() async {
     final db = await database;
-    final List<Map<String, Object?>> res = await db.query(DBConst.CLIENT_DB);
+
+    final List<Map<String, Object?>> res = await db.query(DB_NAME);
+
     Logger().log(Level.warning, res);
 
-    final List<ClientModel> resCl =
-        res.isNotEmpty ? res.map((c) => ClientModel.fromJson(c)).toList() : [];
+    final List<AppIconModel> resCl =
+        res.isNotEmpty ? res.map((c) => AppIconModel.fromJson(c)).toList() : [];
+
     Logger().log(Level.warning, resCl);
 
-    return resCl;
+    return resCl.toSet();
   }
 
-  Future<List<ClientModel>> getBlockedClients() async {
+  Future<int> updateApp(AppIconModel app) async {
     final db = await database;
 
-    final List<Map<String, Object?>> res = await db
-        .rawQuery("SELECT * FROM ${DBConst.CLIENT_DB} WHERE $_columnBlocked=1");
-
-    return res.toList().map((c) => ClientModel.fromJson(c)).toList();
-  }
-
-  Future<int> updateClient(ClientModel client) async {
-    final db = await database;
-    var res = await db.update(DBConst.CLIENT_DB, client.toJson(),
-        where: "$_columnId = ?", whereArgs: [client.id]);
-    return res;
-  }
-
-  Future<int> blockOrUnblock(ClientModel client) async {
-    final db = await database;
-    final ClientModel blocked = ClientModel(
-      id: client.id,
-      firstname: client.firstname,
-      lastname: client.lastname,
-      blocked: client.blocked == 0 ? 1 : 0,
+    var res = await db.update(
+      DB_NAME,
+      app.toJson(),
+      where: "$_columnId = ?",
+      whereArgs: [app.id],
     );
-    var res = await db.update(DBConst.CLIENT_DB, blocked.toJson(),
-        where: "$_columnId = ?", whereArgs: [client.id]);
+
     return res;
   }
 
-  Future<int> deleteClient(int id) async {
+  Future<int> deleteApp(String id) async {
     final db = await database;
-    return db
-        .delete(DBConst.CLIENT_DB, where: "$_columnId = ?", whereArgs: [id]);
+    return db.delete(DB_NAME, where: "$_columnId = ?", whereArgs: [id]);
   }
 
   Future<int> deleteAll() async {
     final db = await database;
-    return db.rawDelete("DELETE * from ${DBConst.CLIENT_DB}");
+    return db.rawDelete("DELETE FROM $DB_NAME");
   }
 }
