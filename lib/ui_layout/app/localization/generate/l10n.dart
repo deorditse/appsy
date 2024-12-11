@@ -79,6 +79,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Страница обновлена`
+  String get update_success {
+    return Intl.message(
+      'Страница обновлена',
+      name: 'update_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить приложение`
+  String get add_app {
+    return Intl.message(
+      'Добавить приложение',
+      name: 'add_app',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

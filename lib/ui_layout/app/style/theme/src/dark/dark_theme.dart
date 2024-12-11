@@ -22,8 +22,13 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
       cardColor: MyColors.blackLight,
       appBarTheme: const AppBarTheme(
         surfaceTintColor: Colors.transparent,
+        backgroundColor: MyColors.black,
+        toolbarHeight: MyUIConst.myToolbarHeight,
+        elevation: 0,
+        centerTitle: true,
+        titleSpacing: 0,
       ),
-      // colorScheme: ColorScheme.fromSeed(seedColor: MyColors.grey),
+      // colorScheme: ColorScheme.fromSeed(seedColor: MyColors.black),
       primaryColorDark: MyColors.primary,
       dividerTheme: const DividerThemeData(
         color: MyColors.grey,
@@ -147,7 +152,6 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
 
       snackBarTheme: SnackBarThemeData(
         backgroundColor: Colors.transparent,
-
 
         // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         // clipBehavior: Clip.hardEdge,

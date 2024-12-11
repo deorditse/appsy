@@ -31,6 +31,7 @@ class MyTextStyle {
       fontFamily: newFontFamilyName?.name ?? FontFamilyName.SBSansText.name,
       height: lineHeight,
       fontStyle: FontStyle.normal,
+
     );
   }
 }

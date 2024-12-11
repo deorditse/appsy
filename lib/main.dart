@@ -35,6 +35,9 @@ class _AppsyAppState extends State<_AppsyApp> {
         BlocProvider(
           create: (_) => SettingBloc()..add(SettingEvent.init()),
         ),
+        BlocProvider(
+          create: (_) => MainBloc()..add(MainEvent.init()),
+        ),
       ],
       child: Builder(builder: (context) {
         return MaterialApp.router(

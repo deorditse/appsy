@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
   "locale": "en_US",
-  "title": "appsy"
+  "title": "appsy",
+  "my_apps": "My apps"
 }

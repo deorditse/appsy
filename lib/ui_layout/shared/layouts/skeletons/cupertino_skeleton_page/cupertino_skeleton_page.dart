@@ -1,3 +1,4 @@
+import 'package:appsy/ui_layout/app/localization/generate/l10n.dart';
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/ui/dialog/my_snacbar.dart';
 import 'package:appsy/ui_layout/shared/ui/loading/my_refresh_indicator.dart';
@@ -23,9 +24,10 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     this.scaffoldKey,
     this.backVoidCallback,
     this.navigationBar,
+    this.drawer,
   });
 
-  final Widget? appBar, leadingAppBar, actionsAppBar, widgetAfterBody;
+  final Widget? appBar, leadingAppBar, actionsAppBar, widgetAfterBody, drawer;
   final EdgeInsetsGeometry? padding;
   final String? titleAppBar, subTitle;
   final Widget body;
@@ -43,7 +45,7 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     }
     await Future.delayed(Duration(seconds: 1));
 
-    myBottomSnackBar(context, content: "Data refreshed!");
+    myBottomSnackBar(context, content: S.of(context).update_success);
   }
 
   @override
@@ -51,7 +53,7 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     FlutterNativeSplash.remove();
 
     return Scaffold(
-      drawer: Drawer(),
+      drawer: drawer,
       key: scaffoldKey,
       body: SafeArea(
         child: NestedScrollView(

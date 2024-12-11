@@ -1,5 +1,5 @@
 name: appsy
-description: "Все приложения в одном месте"
+description: "Пространство для работы и управления приложениями"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
@@ -21,7 +21,7 @@ dependencies:
   flutter_svg:
   url_launcher: ^6.3.1
   uni_links:
-  flutter_native_splash: ^2.4.3
+  flutter_native_splash:
   font_awesome_flutter: ^10.8.0
   intl:
   intl_utils:
@@ -38,6 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
+  flutter_launcher_icons:
   flutter_lints: ^5.0.0
 
 flutter_intl:
@@ -78,3 +79,10 @@ flutter_native_splash:
   web_image_mode: center
   branding_mode: bottom
   fullscreen: true
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.jpg"
+  remove_alpha_ios: true
+  min_sdk_android: 21

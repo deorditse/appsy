@@ -2,5 +2,7 @@
   "@@locale": "ru",
   "locale": "ru_RU",
   "title": "appsy",
-  "my_apps": "Мои приложения"
+  "my_apps": "Мои приложения",
+  "update_success": "Страница обновлена",
+  "add_app": "Добавить приложение"
 }

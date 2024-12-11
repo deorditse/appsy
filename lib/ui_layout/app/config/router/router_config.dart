@@ -15,6 +15,12 @@ import 'package:appsy/ui_layout/pages/error_pages/error_page.dart'
 import 'package:appsy/ui_layout/pages/main_page/main_page.dart'
     deferred as main_page;
 
+import 'package:appsy/ui_layout/pages/main_page/pages/add_app_page/add_app_page.dart'
+    deferred as add_app_page;
+
+import 'package:appsy/ui_layout/pages/main_page/pages/app_page/app_page.dart'
+    deferred as app_page;
+
 part 'transitions.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -61,8 +67,11 @@ final GoRouter router = GoRouter(
   //   );
   // },
   routes: <RouteBase>[
+    ///__________   Навигация   __________///
+
     GoRoute(
       path: routes.root,
+      name: routes.root,
       pageBuilder: (context, state) {
         return NoTransitionPage(
           child: DeferredWidget(
@@ -72,35 +81,42 @@ final GoRouter router = GoRouter(
           key: state.pageKey,
         );
       },
-      // routes: [],
+      routes: [
+        GoRoute(
+          path: routes.addApp,
+          name: routes.addApp,
+          builder: (context, state) => DeferredWidget(
+            add_app_page.loadLibrary,
+            () => add_app_page.AddAppPage(),
+          ),
+        ),
+        GoRoute(
+          path: routes.app,
+          name: routes.app,
+          builder: (context, state) => DeferredWidget(
+            app_page.loadLibrary,
+            () {
+              final appName = state.pathParameters["app_name"]!;
+              return app_page.AppPage(
+                appTitle: appName,
+              );
+            },
+          ),
+        ),
+      ],
     ),
-
-    // ///__________   Страницы авторизации   __________///
-    // GoRoute(
-    //   path: auth_routes.auth, // auth_page.AuthPage.path,
-    //   name: auth_routes.auth,
-    //
-    //   pageBuilder: (context, state) {
-    //     return NoTransitionPage(
-    //       child: DeferredWidget(
-    //         auth_page.loadLibrary,
-    //         () => auth_page.AuthPage(
-    //             pathArea: state.uri.queryParameters['pathArea']),
-    //       ),
-    //       key: state.pageKey,
-    //     );
-    //   },
-    // ),
 
     ///__________   Страницы Ошибок   __________///
 
     GoRoute(
       path: routes.notFound,
+      name: routes.notFound,
       builder: (context, state) => DeferredWidget(
           not_found_page.loadLibrary, () => not_found_page.NotFoundPage()),
     ),
     GoRoute(
       path: routes.error,
+      name: routes.error,
       builder: (context, state) => DeferredWidget(error_page.loadLibrary,
           () => error_page.ErrorPage(error: state.extra as ErrorModel)),
     ),

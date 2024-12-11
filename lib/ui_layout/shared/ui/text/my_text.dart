@@ -12,6 +12,8 @@ class MyText extends StatelessWidget {
     this.newFontWeight,
     this.newFontFamilyName,
     this.textAlign = TextAlign.left,
+    this.maxLines,
+    this.overflow = TextOverflow.fade,
   });
 
   final TextAlign textAlign;
@@ -21,6 +23,8 @@ class MyText extends StatelessWidget {
   final TextDecoration? decoration;
   final FontWeight? newFontWeight;
   final FontFamilyName? newFontFamilyName;
+  final int? maxLines;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +39,9 @@ class MyText extends StatelessWidget {
         newFontFamilyName: newFontFamilyName,
       ),
       textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: maxLines != null ? overflow : null,
+      softWrap: maxLines != null ? false : null,
     );
   }
 }
