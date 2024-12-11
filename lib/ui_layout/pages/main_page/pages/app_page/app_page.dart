@@ -36,9 +36,9 @@ class AppPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: SafeArea(
                 child: Center(
-                  child: MyText(test + test
-                      // textColor: Theme.of(context).cardColor,
-                      ),
+                  child: MyText(
+                    test + test,
+                  ),
                 ),
               ),
             )),
