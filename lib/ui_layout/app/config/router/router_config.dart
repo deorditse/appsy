@@ -93,15 +93,20 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: routes.app,
           name: routes.app,
-          builder: (context, state) => DeferredWidget(
-            app_page.loadLibrary,
-            () {
-              final appName = state.pathParameters["app_name"]!;
-              return app_page.AppPage(
-                appTitle: appName,
-              );
-            },
-          ),
+          pageBuilder: (context, state) {
+            return SlideTransitionDownToUpPage(
+              child: DeferredWidget(
+                app_page.loadLibrary,
+                () {
+                  final appName = state.pathParameters["app_name"]!;
+                  return app_page.AppPage(
+                    appTitle: appName,
+                  );
+                },
+              ),
+              key: state.pageKey,
+            );
+          },
         ),
       ],
     ),

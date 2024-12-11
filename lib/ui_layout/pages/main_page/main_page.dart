@@ -18,14 +18,14 @@ final GlobalKey<ScaffoldState> scaffoldMainPageKey = GlobalKey(
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-  //
-  // Future<void> callbackTopRefreshIndicator() async {
-  //   await Future.delayed(Duration(seconds: 1));
-  // }
+  Future<void> callbackTopRefreshIndicator() async {
+    await Future.delayed(Duration(seconds: 1));
+  }
 
   @override
   Widget build(BuildContext context) {
     return MyCupertinoSkeletonPage(
+      callbackTopRefreshIndicator: callbackTopRefreshIndicator,
       drawer: Drawer(),
       scaffoldKey: scaffoldMainPageKey,
       actionsAppBar: IconButton(

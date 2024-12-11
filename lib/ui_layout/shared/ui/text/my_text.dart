@@ -13,7 +13,7 @@ class MyText extends StatelessWidget {
     this.newFontFamilyName,
     this.textAlign = TextAlign.left,
     this.maxLines,
-    this.overflow = TextOverflow.fade,
+    this.overflow = TextOverflow.ellipsis,
   });
 
   final TextAlign textAlign;

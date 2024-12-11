@@ -12,6 +12,7 @@ class MyImage extends StatelessWidget {
     this.width,
     this.fit,
     this.semanticsLabel,
+    this.placeholder,
   });
 
   final String imageUrl;
@@ -19,6 +20,7 @@ class MyImage extends StatelessWidget {
   final Color? color;
   final BoxFit? fit;
   final String? semanticsLabel;
+  final Widget? placeholder;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,8 @@ class MyImage extends StatelessWidget {
             width: width,
             color: color,
             fit: fit ?? BoxFit.contain,
-            placeholder: (context, url) => const MyCircularProgressIndicator(),
+            placeholder: (context, url) =>
+                placeholder ?? const MyCircularProgressIndicator(),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           )
         : imageUrl.contains('.svg')

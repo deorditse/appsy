@@ -40,7 +40,7 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
 
   Future<void> _refreshData(context) async {
     if (callbackTopRefreshIndicator != null) {
-      callbackTopRefreshIndicator!();
+      await callbackTopRefreshIndicator!();
       return;
     }
     await Future.delayed(Duration(seconds: 1));

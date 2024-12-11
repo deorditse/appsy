@@ -25,62 +25,65 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: appTitle,
-      child: MaterialSkeletonPage(
-        extendBodyBehindAppBar: true,
-        padding: EdgeInsets.zero,
-        titleAppBar: appTitle,
-        body: Container(
-            height: double.maxFinite,
-            width: double.maxFinite,
-            color: Colors.white,
-            child: SingleChildScrollView(
-              child: SafeArea(
-                child: Center(
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          final res = DBProvider.db.getAllApps();
-                          print(res);
-                        },
-                        child: MyText("getAllApps"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          final res = DBProvider.db.addApp(testApp);
-                          print(res);
-                        },
-                        child: MyText("addApp"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          final res = DBProvider.db
-                              .updateApp(testApp.copyWith(name: "updateApp"));
-                          print(res);
-                        },
-                        child: MyText("updateApp"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          final res = DBProvider.db.deleteApp(testApp.id);
-                          print(res);
-                        },
-                        child: MyText("deleteApp"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          final res = DBProvider.db.deleteAll();
-                          print(res);
-                        },
-                        child: MyText("deleteDB"),
-                      ),
-                    ],
+    return Material(
+      color: Colors.transparent,
+      child: Hero(
+        tag: appTitle,
+        child: MaterialSkeletonPage(
+          extendBodyBehindAppBar: true,
+          padding: EdgeInsets.zero,
+          titleAppBar: appTitle,
+          body: Container(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              color: Colors.white,
+              child: SingleChildScrollView(
+                child: SafeArea(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            final res = DBProvider.db.getAllApps();
+                            print(res);
+                          },
+                          child: MyText("getAllApps"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final res = DBProvider.db.addApp(testApp);
+                            print(res);
+                          },
+                          child: MyText("addApp"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final res = DBProvider.db
+                                .updateApp(testApp.copyWith(name: "updateApp"));
+                            print(res);
+                          },
+                          child: MyText("updateApp"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final res = DBProvider.db.deleteApp(testApp.id);
+                            print(res);
+                          },
+                          child: MyText("deleteApp"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final res = DBProvider.db.deleteAll();
+                            print(res);
+                          },
+                          child: MyText("deleteDB"),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )),
+              )),
+        ),
       ),
     );
   }

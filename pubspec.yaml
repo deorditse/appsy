@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   logger:
   pull_to_refresh: ^2.0.0
+  focused_menu: ^1.0.5
 
 dev_dependencies:
   flutter_test:
