@@ -37,7 +37,8 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
       primaryTextTheme: _textDark(_themeDark.textTheme),
       cardTheme: const CardTheme(
         color: Colors.white,
-        surfaceTintColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent
+
       ),
       scrollbarTheme: ScrollbarThemeData(
         thumbColor: WidgetStateProperty.all(

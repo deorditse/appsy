@@ -94,7 +94,7 @@ final GoRouter router = GoRouter(
           path: routes.app,
           name: routes.app,
           pageBuilder: (context, state) {
-            return SlideTransitionDownToUpPage(
+            return FadeTransitionPage(
               child: DeferredWidget(
                 app_page.loadLibrary,
                 () {

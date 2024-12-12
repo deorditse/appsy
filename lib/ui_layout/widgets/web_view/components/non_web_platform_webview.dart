@@ -51,17 +51,8 @@ class _WebViewWidgetState extends State<_WebViewWidget> {
         (_controller.platform as AndroidWebViewController)
             .setMediaPlaybackRequiresUserGesture(false);
       }
-      const enableDarkMode = """
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.style.setProperty('--color-scheme', 'dark');
-  }
-""";
-
-      _controller.runJavaScript(enableDarkMode);
-
       _controller
         ..setJavaScriptMode(JavaScriptMode.unrestricted)
-        ..setBackgroundColor(MyColors.white)
         ..setNavigationDelegate(
           NavigationDelegate(
             onProgress: (int progress) {

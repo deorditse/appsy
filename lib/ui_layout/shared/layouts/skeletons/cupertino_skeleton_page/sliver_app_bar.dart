@@ -50,7 +50,7 @@ class MySliverAppBar extends StatelessWidget {
           // if (backLine) myBackLineInAppBar(context: context),
           MyText(
             title,
-            fontSize: fontSizeAppBar ?? MyUIConst.textSizeH3,
+            fontSize: fontSizeAppBar ?? MyUIConst.textSizeH4,
             newFontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
           ),

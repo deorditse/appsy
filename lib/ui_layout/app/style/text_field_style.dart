@@ -30,7 +30,7 @@ class MyTextFieldStyle {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           gapPadding: 0,
           borderSide: BorderSide(
-            color: color ?? Theme.of(context).primaryColor,
+            color: color ?? Theme.of(context).textTheme.bodyMedium!.color!,
             width: 1,
           ),
         );
@@ -38,23 +38,7 @@ class MyTextFieldStyle {
     final bool isMobile = AdaptiveWidget.isMobile(context);
 
     return InputDecoration(
-      suffixIcon: (prefixSuffixIcon != null || suffixIcon != null)
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (prefixSuffixIcon != null)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 18.0),
-                    child: prefixSuffixIcon,
-                  ),
-                if (suffixIcon != null)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: suffixIcon,
-                  ),
-              ],
-            )
-          : null,
+      suffixIcon: suffixIcon,
 
       // suffix: prefix,
       // icon: prefixIcon,
@@ -80,8 +64,7 @@ class MyTextFieldStyle {
       disabledBorder: myOutlineInputBorder(color: colorBorder),
 
       focusedBorder: myOutlineInputBorder(
-        color:
-            focusColorBorder ?? Theme.of(context).textTheme.bodyMedium!.color,
+        color: focusColorBorder ?? Theme.of(context).primaryColor,
       ),
 
       errorBorder: myOutlineInputBorder(color: MyColors.red),

@@ -27,13 +27,15 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     this.drawer,
     this.flexibleSpaceBar,
     this.pinnedAppBar,
+    this.isBottomSafeArea = true,
+    this.isRefresh = true,
   });
 
   final Widget? appBar, leadingAppBar, actionsAppBar, widgetAfterBody, drawer;
   final EdgeInsetsGeometry? padding;
   final String? titleAppBar, subTitle;
   final Widget body;
-  final bool primary;
+  final bool primary, isBottomSafeArea, isRefresh;
   final bool? pinnedAppBar;
   final Future<void> Function()? callbackTopRefreshIndicator;
   final bool resizeToAvoidBottomInset;
@@ -62,8 +64,10 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
       },
       child: Scaffold(
         drawer: drawer,
+        primary: false,
         key: scaffoldKey,
         body: SafeArea(
+          bottom: isBottomSafeArea,
           child: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
@@ -82,36 +86,43 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
                 if (appBar != null) appBar!,
               ];
             },
-            body: MyRefreshIndicator(
-              callbackTopRefreshIndicator: () => _refreshData(context),
-              child: CustomScrollView(
-                shrinkWrap: true,
-                primary: primary,
-                slivers: [
-                  // SliverOverlapInjector(
-                  //   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                  // ),
-                  SliverPadding(
-                    padding: padding ??
-                        const EdgeInsets.symmetric(
-                          horizontal: MyUIConst.hlPadding,
-                          vertical: MyUIConst.vPadding,
-                        ),
-                    sliver: SliverToBoxAdapter(child: body),
-                  ),
-                  if (widgetAfterBody != null)
-                    SliverPadding(
-                      padding: const EdgeInsets.only(
-                        bottom: MyUIConst.vPadding,
-                      ),
-                      sliver: widgetAfterBody!,
-                    ),
-                ],
-              ),
-            ),
+            body: isRefresh
+                ? MyRefreshIndicator(
+                    callbackTopRefreshIndicator: () => _refreshData(context),
+                    child: _buildBody(),
+                  )
+                : _buildBody(),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildBody() {
+    return CustomScrollView(
+      shrinkWrap: true,
+      // physics: NeverScrollableScrollPhysics(),
+      primary: primary,
+      slivers: [
+        // SliverOverlapInjector(
+        //   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+        // ),
+        SliverPadding(
+          padding: padding ??
+              const EdgeInsets.symmetric(
+                horizontal: MyUIConst.hlPadding,
+                vertical: MyUIConst.vPadding,
+              ),
+          sliver: SliverToBoxAdapter(child: body),
+        ),
+        if (widgetAfterBody != null)
+          SliverPadding(
+            padding: const EdgeInsets.only(
+              bottom: MyUIConst.vPadding,
+            ),
+            sliver: widgetAfterBody!,
+          ),
+      ],
     );
   }
 }

@@ -43,15 +43,15 @@ class CardApp extends StatelessWidget {
                 tag: app.name,
                 child: Container(
                   clipBehavior: Clip.hardEdge,
-                  width: double.maxFinite,
-                  height: double.maxFinite,
                   decoration: BoxDecoration(
-                    // color: MyColors.blackLight,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: MyImage(
+                    width: double.maxFinite,
+                    height: double.maxFinite,
                     imageUrl:
                         app.iconPath ?? "assets/icons/menu_bottom/projects.svg",
+                    fit: BoxFit.cover,
                     placeholder: Container(),
                   ),
                 ),

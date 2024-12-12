@@ -17,14 +17,28 @@ class AppBarMaterial extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      // elevation: 0,
       automaticallyImplyLeading: true,
+      leading: leadingWidget ??
+          IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: FittedBox(
+              child: Icon(
+                Icons.arrow_back_ios_new_outlined,
+              ),
+            ),
+          ),
       toolbarHeight: toolbarHeight ?? MyUIConst.myToolbarHeight,
-      forceMaterialTransparency: true,
+      // backgroundColor: Colo,
+      forceMaterialTransparency: extendBodyBehindAppBar,
+      // surfaceTintColor: Colors.transparent,
       foregroundColor:
           extendBodyBehindAppBar ? Theme.of(context).cardColor : null,
       title: MyText(
         title,
-        fontSize: MyUIConst.textSizeH3,
+        fontSize: MyUIConst.textSizeH4,
         newFontWeight: FontWeight.w500,
         textAlign: TextAlign.center,
         textColor: extendBodyBehindAppBar ? Theme.of(context).cardColor : null,
@@ -33,5 +47,5 @@ class AppBarMaterial extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(MyUIConst.myToolbarHeight);
 }

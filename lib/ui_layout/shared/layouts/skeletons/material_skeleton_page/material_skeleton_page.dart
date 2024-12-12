@@ -2,6 +2,7 @@ import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
 import 'package:appsy/ui_layout/shared/wrappers/adaptive_response/adaptive_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 part 'app_bar_material.dart';
 
@@ -29,10 +30,12 @@ class MaterialSkeletonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       key: scaffoldKeyPage,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       drawer: drawer,
+      extendBody: true,
       appBar: appBar ??
           (titleAppBar != null
               ? AppBarMaterial(
