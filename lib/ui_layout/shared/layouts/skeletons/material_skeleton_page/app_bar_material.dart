@@ -6,16 +6,19 @@ class AppBarMaterial extends StatelessWidget implements PreferredSizeWidget {
     required this.leadingWidget,
     required this.title,
     required this.extendBodyBehindAppBar,
+    this.toolbarHeight,
   });
 
   final Widget? leadingWidget;
   final String title;
   final bool extendBodyBehindAppBar;
+  final double? toolbarHeight;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: true,
+      toolbarHeight: toolbarHeight ?? MyUIConst.myToolbarHeight,
       forceMaterialTransparency: true,
       foregroundColor:
           extendBodyBehindAppBar ? Theme.of(context).cardColor : null,

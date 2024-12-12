@@ -14,9 +14,11 @@ class MySliverAppBar extends StatelessWidget {
     this.backLine = false,
     this.subTitle,
     this.backVoidCallback,
+    this.flexibleSpaceBar,
+    this.pinned,
   });
 
-  final bool? isSearchWidget;
+  final bool? isSearchWidget, pinned;
   final bool backLine;
 
   final BuildContext myContext;
@@ -25,28 +27,22 @@ class MySliverAppBar extends StatelessWidget {
   final double? fontSizeAppBar;
   final String? subTitle;
   final VoidCallback? backVoidCallback;
+  final FlexibleSpaceBar? flexibleSpaceBar;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      floating: false,
-      pinned: false,
-      // flexibleSpace: FlexibleSpaceBar(
-      //   title: Text("Refresh Example"),
-      //   background: Image.network(
-      //     "https://via.placeholder.com/400x200",
-      //     fit: BoxFit.cover,
-      //   ),
-      // ),
+      floating: true,
+      snap: true,
+      pinned: pinned ?? true,
+      flexibleSpace: flexibleSpaceBar,
       surfaceTintColor: Colors.transparent,
       automaticallyImplyLeading: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      leadingWidth: 40,
       leading: leading,
       centerTitle: true,
       expandedHeight: MyUIConst.myToolbarHeight,
       toolbarHeight: MyUIConst.myToolbarHeight,
-
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +65,6 @@ class MySliverAppBar extends StatelessWidget {
             ),
         ],
       ),
-
       actions: actions != null
           ? [
               Padding(
@@ -77,9 +72,7 @@ class MySliverAppBar extends StatelessWidget {
                 child: actions,
               )
             ]
-          : [
-              const SizedBox(width: 40),
-            ],
+          : null,
     );
   }
 }

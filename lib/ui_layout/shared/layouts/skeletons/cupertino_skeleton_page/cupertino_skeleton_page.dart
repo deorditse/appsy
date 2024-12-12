@@ -25,6 +25,8 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
     this.backVoidCallback,
     this.navigationBar,
     this.drawer,
+    this.flexibleSpaceBar,
+    this.pinnedAppBar,
   });
 
   final Widget? appBar, leadingAppBar, actionsAppBar, widgetAfterBody, drawer;
@@ -32,11 +34,13 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
   final String? titleAppBar, subTitle;
   final Widget body;
   final bool primary;
+  final bool? pinnedAppBar;
   final Future<void> Function()? callbackTopRefreshIndicator;
   final bool resizeToAvoidBottomInset;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final VoidCallback? backVoidCallback;
   final ObstructingPreferredSizeWidget? navigationBar;
+  final FlexibleSpaceBar? flexibleSpaceBar;
 
   Future<void> _refreshData(context) async {
     if (callbackTopRefreshIndicator != null) {
@@ -52,50 +56,58 @@ class MyCupertinoSkeletonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
 
-    return Scaffold(
-      drawer: drawer,
-      key: scaffoldKey,
-      body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              if (appBar == null && titleAppBar != null)
-                MySliverAppBar(
-                  myContext: context,
-                  subTitle: subTitle,
-                  title: titleAppBar!,
-                  leading: leadingAppBar,
-                  actions: actionsAppBar,
-                  backVoidCallback: backVoidCallback,
-                ),
-              if (appBar != null) appBar!,
-            ];
-          },
-          body: MyRefreshIndicator(
-            callbackTopRefreshIndicator: () => _refreshData(context),
-            child: CustomScrollView(
-              shrinkWrap: true,
-              primary: primary,
-              slivers: [
-                // SliverOverlapInjector(
-                //   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                // ),
-                SliverPadding(
-                  padding: padding ??
-                      const EdgeInsets.symmetric(
-                        horizontal: MyUIConst.hlPadding,
-                        vertical: MyUIConst.vPadding,
-                      ),
-                  sliver: SliverToBoxAdapter(child: body),
-                ),
-                if (widgetAfterBody != null)
-                  SliverPadding(
-                    padding: const EdgeInsets.only(
-                      bottom: MyUIConst.vPadding,
-                    ),
-                    sliver: widgetAfterBody!,
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        drawer: drawer,
+        key: scaffoldKey,
+        body: SafeArea(
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                if (appBar == null && titleAppBar != null)
+                  MySliverAppBar(
+                    myContext: context,
+                    subTitle: subTitle,
+                    title: titleAppBar!,
+                    leading: leadingAppBar,
+                    actions: actionsAppBar,
+                    backVoidCallback: backVoidCallback,
+                    flexibleSpaceBar: flexibleSpaceBar,
+                    pinned: pinnedAppBar,
                   ),
-              ],
+                if (appBar != null) appBar!,
+              ];
+            },
+            body: MyRefreshIndicator(
+              callbackTopRefreshIndicator: () => _refreshData(context),
+              child: CustomScrollView(
+                shrinkWrap: true,
+                primary: primary,
+                slivers: [
+                  // SliverOverlapInjector(
+                  //   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                  // ),
+                  SliverPadding(
+                    padding: padding ??
+                        const EdgeInsets.symmetric(
+                          horizontal: MyUIConst.hlPadding,
+                          vertical: MyUIConst.vPadding,
+                        ),
+                    sliver: SliverToBoxAdapter(child: body),
+                  ),
+                  if (widgetAfterBody != null)
+                    SliverPadding(
+                      padding: const EdgeInsets.only(
+                        bottom: MyUIConst.vPadding,
+                      ),
+                      sliver: widgetAfterBody!,
+                    ),
+                ],
+              ),
             ),
           ),
         ),

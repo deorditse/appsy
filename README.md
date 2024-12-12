@@ -8,4 +8,4 @@ flutter --no-color pub global run intl_utils:generate
 
 ## routers path
 
-import 'package:appsy/ui_layout/pages/main_page/routes.dart' as routes;
+import 'package:appsy/ui_layout/pages/routes.dart' as routes;

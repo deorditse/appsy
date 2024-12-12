@@ -1,4 +1,4 @@
-import 'package:appsy/ui_layout/pages/main_page/routes.dart' as routes;
+import 'package:appsy/ui_layout/pages/routes.dart' as routes;
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/layouts/skeletons/cupertino_skeleton_page/cupertino_skeleton_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,16 +25,17 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyCupertinoSkeletonPage(
+      pinnedAppBar: false,
       callbackTopRefreshIndicator: callbackTopRefreshIndicator,
       drawer: Drawer(),
       scaffoldKey: scaffoldMainPageKey,
-      actionsAppBar: IconButton(
-        onPressed: () {
-          GoRouter.of(context).goNamed(routes.addApp);
-        },
-        icon: Hero(
-          tag: S.of(context).add_app,
-          child: Icon(
+      actionsAppBar: Hero(
+        tag: S.of(context).add_app,
+        child: IconButton(
+          onPressed: () {
+            GoRouter.of(context).goNamed(routes.addApp);
+          },
+          icon: Icon(
             FontAwesomeIcons.add,
             color: Theme.of(context).primaryColor,
           ),

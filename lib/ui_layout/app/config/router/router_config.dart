@@ -98,9 +98,9 @@ final GoRouter router = GoRouter(
               child: DeferredWidget(
                 app_page.loadLibrary,
                 () {
-                  final appName = state.pathParameters["app_name"]!;
                   return app_page.AppPage(
-                    appTitle: appName,
+                    appTitle: state.pathParameters["app_name"]!,
+                    url: state.uri.queryParameters["url"]!,
                   );
                 },
               ),
