@@ -1,11 +1,14 @@
+import 'package:models/index.dart';
+import 'package:business_layout/index.dart';
 import 'package:appsy/ui_layout/app/localization/generate/l10n.dart';
-import 'package:appsy/ui_layout/app/style/text_field_style.dart';
-import 'package:appsy/ui_layout/app/style/text_style.dart';
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/layouts/skeletons/cupertino_skeleton_page/cupertino_skeleton_page.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'widgets/about_app.dart';
+import 'widgets/text_field.dart';
 
 class AddAppPage extends StatefulWidget {
   const AddAppPage({super.key});
@@ -15,16 +18,7 @@ class AddAppPage extends StatefulWidget {
 }
 
 class _AddAppPageState extends State<AddAppPage> {
-  final TextEditingController _textController = TextEditingController();
-
-  void onHandleAddApp() {
-    // TODO: добавить валидацию url-а
-    // if (_textController.text.isEmpty) {
-    //   // TODO: вывести сообщение об ошибке
-    // } else {
-    //   // TODO: отправить запрос на добавление приложения
-    // }
-  }
+  AppIconModel? _app;
 
   @override
   Widget build(BuildContext context) {
@@ -34,48 +28,11 @@ class _AddAppPageState extends State<AddAppPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // MyText(
-          //   "url сервиса",
-          //   fontSize: MyUIConst.textSizeH3,
-          // ),
-          // MyUIConst.vSizeBox,
-          Padding(
-            padding: const EdgeInsets.all(MyUIConst.vPadding),
-            child: TextField(
-              key: const Key('fieldText'),
-              keyboardType: TextInputType.url,
-              controller: _textController,
-              cursorColor: Theme.of(context).primaryColor,
-              maxLines: 1,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.singleLineFormatter,
-              ],
-              style: MyTextStyle.I.textStyle(
-                fontSize: MyUIConst.textSizeH4,
-                textColor: Theme.of(context).primaryColor,
-              ),
-              onChanged: (text) {
-                setState(() {});
-              },
-              decoration: MyTextFieldStyle.I.myStyleTextField(
-                context,
-                hintText: "Вставьте url нужного сервиса",
-                suffixIcon: _textController.text.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Material(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(8),
-                          child: InkWell(
-                            onTap: onHandleAddApp,
-                            child: Icon(Icons.add),
-                          ),
-                        ),
-                      )
-                    : null,
-              ),
-            ),
+          TextFieldAddApp(
+            appCallback: (newApp) => setState(() => _app = newApp),
           ),
+          MyUIConst.vSizeBox,
+          if (_app != null) AboutApp(app: _app!),
           MyUIConst.vSizeBox,
           MyText(
             "Рекомендации",

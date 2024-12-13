@@ -19,7 +19,6 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
       ),
       scaffoldBackgroundColor: MyColors.black,
       primaryColor: MyColors.primary,
-      cardColor: MyColors.blackLight,
       appBarTheme: const AppBarTheme(
         surfaceTintColor: Colors.transparent,
         backgroundColor: MyColors.black,
@@ -36,8 +35,8 @@ ThemeData themeDark(BuildContext context) => _themeDark.copyWith(
       ),
       primaryTextTheme: _textDark(_themeDark.textTheme),
       cardTheme: const CardTheme(
-        color: Colors.white,
-        surfaceTintColor: Colors.transparent
+        color: MyColors.blackLight,
+        surfaceTintColor: Colors.transparent,
 
       ),
       scrollbarTheme: ScrollbarThemeData(

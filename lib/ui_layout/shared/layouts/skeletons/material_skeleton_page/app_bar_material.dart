@@ -31,7 +31,7 @@ class AppBarMaterial extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
       toolbarHeight: toolbarHeight ?? MyUIConst.myToolbarHeight,
-      // backgroundColor: Colo,
+      backgroundColor: MyColors.blackLight,
       forceMaterialTransparency: extendBodyBehindAppBar,
       // surfaceTintColor: Colors.transparent,
       foregroundColor:

@@ -1,15 +1,16 @@
 import 'package:appsy/ui_layout/app/style/colors.dart';
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/wrappers/adaptive_response/adaptive_widget.dart';
+import 'package:appsy/ui_layout/widgets/card_app/card_app.dart';
 import 'package:focused_menu/focused_menu.dart';
-import 'package:focused_menu/modals.dart';
 import 'package:models/index.dart';
 import 'package:business_layout/index.dart';
 import 'package:appsy/ui_layout/app/localization/generate/l10n.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'widgets/card_app/card_app.dart';
+import '../../pages/app_page/app_page.dart';
+import 'widgets/app_menu.dart';
 import 'widgets/empty_apps.dart';
 import 'widgets/loading_apps.dart';
 
@@ -17,6 +18,15 @@ class GridApps extends StatelessWidget {
   const GridApps({super.key});
 
   static const double _gap = MyUIConst.vPadding;
+  static final AppMenu _appMenu = AppMenu();
+
+  void onTapApp(context, AppIconModel app) {
+    AppPage.goRoute(
+      context,
+      appName: app.name,
+      url: app.url,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,37 +70,13 @@ class GridApps extends StatelessWidget {
                     // Offset value to show menuItem from the selected item
                     bottomOffsetHeight: MyUIConst.vPadding,
                     // Offset height to consider, for showing the menu item ( for example bottom navigation bar), so that the popup menu will be shown on top of selected item.
-                    menuItems: <FocusedMenuItem>[
-                      // Add Each FocusedMenuItem  for Menu Options
-                      FocusedMenuItem(
-                          backgroundColor: MyColors.blackLight,
-                          title: MyText("Open"),
-                          trailingIcon: Icon(Icons.open_in_new),
-                          onPressed: () {}),
-                      FocusedMenuItem(
-                          backgroundColor: MyColors.blackLight,
-                          title: MyText("Share"),
-                          trailingIcon: Icon(Icons.share),
-                          onPressed: () {}),
-                      FocusedMenuItem(
-                          backgroundColor: MyColors.blackLight,
-                          title: MyText("Favorite"),
-                          trailingIcon: Icon(Icons.favorite_border),
-                          onPressed: () {}),
-                      FocusedMenuItem(
-                          backgroundColor: MyColors.blackLight,
-                          title: MyText("Delete"),
-                          trailingIcon: Icon(
-                            Icons.delete,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () {}),
-                    ],
+                    menuItems: _appMenu.apppMenu(context, app: app),
                     onPressed: () {},
                     child: CardApp(
                       app,
                       isMobile: isMobile,
                       isDesktop: isDesktop,
+                      onTap: () => onTapApp(context, app),
                     ),
                   ),
                 );

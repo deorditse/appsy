@@ -1,5 +1,5 @@
-
 import 'package:get_it/get_it.dart';
+import 'layout_provider.dart';
 
 class ServiceProvider {
   const ServiceProvider._();
@@ -12,11 +12,11 @@ class ServiceProvider {
   static final instance = const ServiceProvider._();
 
   void initialize() {
+    LayoutServiceProvider.instance.initialize();
 
     ///repository
     // _getIt.registerLazySingleton<AuthRepository>(
     //   () => AuthRepositoryImpl(),
     // );
-
   }
 }
