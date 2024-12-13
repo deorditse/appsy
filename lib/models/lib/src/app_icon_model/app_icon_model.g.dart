@@ -12,6 +12,9 @@ _$AppIconModelImpl _$$AppIconModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       iconPath: json['iconPath'] as String?,
       url: json['url'] as String,
+      error: json['error'] == null
+          ? null
+          : ErrorModel.fromJson(json['error'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$AppIconModelImplToJson(_$AppIconModelImpl instance) =>
@@ -20,4 +23,5 @@ Map<String, dynamic> _$$AppIconModelImplToJson(_$AppIconModelImpl instance) =>
       'name': instance.name,
       'iconPath': instance.iconPath,
       'url': instance.url,
+      'error': instance.error,
     };

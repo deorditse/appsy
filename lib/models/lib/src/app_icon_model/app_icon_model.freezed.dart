@@ -24,6 +24,7 @@ mixin _$AppIconModel {
   String get name => throw _privateConstructorUsedError;
   String? get iconPath => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
+  ErrorModel? get error => throw _privateConstructorUsedError;
 
   /// Serializes this AppIconModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,14 @@ abstract class $AppIconModelCopyWith<$Res> {
           AppIconModel value, $Res Function(AppIconModel) then) =
       _$AppIconModelCopyWithImpl<$Res, AppIconModel>;
   @useResult
-  $Res call({String id, String name, String? iconPath, String url});
+  $Res call(
+      {String id,
+      String name,
+      String? iconPath,
+      String url,
+      ErrorModel? error});
+
+  $ErrorModelCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -63,6 +71,7 @@ class _$AppIconModelCopyWithImpl<$Res, $Val extends AppIconModel>
     Object? name = null,
     Object? iconPath = freezed,
     Object? url = null,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,7 +90,25 @@ class _$AppIconModelCopyWithImpl<$Res, $Val extends AppIconModel>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as ErrorModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of AppIconModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ErrorModelCopyWith<$Res>? get error {
+    if (_value.error == null) {
+      return null;
+    }
+
+    return $ErrorModelCopyWith<$Res>(_value.error!, (value) {
+      return _then(_value.copyWith(error: value) as $Val);
+    });
   }
 }
 
@@ -93,7 +120,15 @@ abstract class _$$AppIconModelImplCopyWith<$Res>
       __$$AppIconModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, String? iconPath, String url});
+  $Res call(
+      {String id,
+      String name,
+      String? iconPath,
+      String url,
+      ErrorModel? error});
+
+  @override
+  $ErrorModelCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -113,6 +148,7 @@ class __$$AppIconModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? iconPath = freezed,
     Object? url = null,
+    Object? error = freezed,
   }) {
     return _then(_$AppIconModelImpl(
       id: null == id
@@ -131,6 +167,10 @@ class __$$AppIconModelImplCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as ErrorModel?,
     ));
   }
 }
@@ -142,7 +182,8 @@ class _$AppIconModelImpl implements _AppIconModel {
       {required this.id,
       required this.name,
       required this.iconPath,
-      required this.url});
+      required this.url,
+      this.error});
 
   factory _$AppIconModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppIconModelImplFromJson(json);
@@ -155,10 +196,12 @@ class _$AppIconModelImpl implements _AppIconModel {
   final String? iconPath;
   @override
   final String url;
+  @override
+  final ErrorModel? error;
 
   @override
   String toString() {
-    return 'AppIconModel(id: $id, name: $name, iconPath: $iconPath, url: $url)';
+    return 'AppIconModel(id: $id, name: $name, iconPath: $iconPath, url: $url, error: $error)';
   }
 
   @override
@@ -170,12 +213,13 @@ class _$AppIconModelImpl implements _AppIconModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.iconPath, iconPath) ||
                 other.iconPath == iconPath) &&
-            (identical(other.url, url) || other.url == url));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, iconPath, url);
+  int get hashCode => Object.hash(runtimeType, id, name, iconPath, url, error);
 
   /// Create a copy of AppIconModel
   /// with the given fields replaced by the non-null parameter values.
@@ -198,7 +242,8 @@ abstract class _AppIconModel implements AppIconModel {
       {required final String id,
       required final String name,
       required final String? iconPath,
-      required final String url}) = _$AppIconModelImpl;
+      required final String url,
+      final ErrorModel? error}) = _$AppIconModelImpl;
 
   factory _AppIconModel.fromJson(Map<String, dynamic> json) =
       _$AppIconModelImpl.fromJson;
@@ -211,6 +256,8 @@ abstract class _AppIconModel implements AppIconModel {
   String? get iconPath;
   @override
   String get url;
+  @override
+  ErrorModel? get error;
 
   /// Create a copy of AppIconModel
   /// with the given fields replaced by the non-null parameter values.

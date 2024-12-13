@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../error_model/error_model.dart';
+
 part 'app_icon_model.freezed.dart';
 
 part 'app_icon_model.g.dart';
@@ -13,6 +15,7 @@ class AppIconModel with _$AppIconModel {
     required String name,
     required String? iconPath,
     required String url,
+    ErrorModel? error,
   }) = _AppIconModel;
 
   factory AppIconModel.fromJson(Map<String, Object?> json) =>

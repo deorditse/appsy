@@ -38,6 +38,7 @@ class CardApp extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
+                    color: Theme.of(context).disabledColor,
                   ),
                   child: MyImage(
                     // width: double.maxFinite,

@@ -1,3 +1,4 @@
+import 'package:appsy/ui_layout/app/style/colors.dart';
 import 'package:appsy/ui_layout/app/style/text_field_style.dart';
 import 'package:appsy/ui_layout/app/style/text_style.dart';
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
@@ -42,14 +43,31 @@ class _AboutAppState extends State<AboutApp> {
   void initState() {
     _nameController = TextEditingController(text: widget.app.name);
     _urlController = TextEditingController(text: widget.app.url);
-
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant AboutApp oldWidget) {
+    if (oldWidget.app != widget.app) {
+      setState(() {
+        _nameController.text = widget.app.name;
+        _urlController.text = widget.app.url;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
     final bool isDesktop = AdaptiveWidget.isDesktop(context);
     final bool isMobile = AdaptiveWidget.isMobile(context);
+    if (widget.app.error != null) {
+      return Center(
+          child: MyText(
+        widget.app.error!.description + widget.app.error!.guid,
+        textColor: MyColors.red,
+      ));
+    }
     return Card(
       child: Column(
         children: [

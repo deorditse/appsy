@@ -31,7 +31,9 @@ class _AddAppPageState extends State<AddAppPage> {
         children: [
           MyUIConst.vSizeBox,
           TextFieldAddApp(
-            appCallback: (newApp) => setState(() => _app = newApp),
+            appCallback: (newApp) => setState(() {
+              _app = newApp;
+            }),
           ),
           MyUIConst.vSizeBox,
           AnimatedSize(

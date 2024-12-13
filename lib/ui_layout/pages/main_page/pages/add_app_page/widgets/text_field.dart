@@ -26,38 +26,45 @@ class TextFieldAddApp extends StatefulWidget {
 
 class _TextFieldAddAppState extends State<TextFieldAddApp> {
   final TextEditingController _textController = TextEditingController();
-  static final _debouncer = const Debouncer(milliseconds: 300);
+  static final _debouncer = const Debouncer(milliseconds: 1500);
 
   final FocusNode _focusNode = FocusNode();
 
   void onValidateUrl(String text) {
-    final bool _validURL = Uri.parse(text).isAbsolute;
+    if (text.isEmpty) {
+      _textController.clear();
+      widget.appCallback(null);
+      setState(() {});
+    }
+
+    // Проверка и добавление префикса https:// если его нет
+    final normalizedUrl = text.startsWith('http') ? text : 'https://$text';
+    final uri = Uri.tryParse(normalizedUrl);
+    final bool _validURL = uri != null && uri.hasScheme && uri.hasAuthority;
 
     if (_validURL) {
       _debouncer.run(() async {
         if (text.isNotEmpty) {
-          final AppIconModel app = await GetSiteInfo.buUrl(text);
-
-          widget.appCallback(app);
-          _focusNode.unfocus();
+          onSend(normalizedUrl);
         }
       });
     } else {
-      if (text.isEmpty) {
-        _textController.clear();
-        setState(() {});
-        widget.appCallback(null);
-      } else {
-        widget.appCallback(null);
-        _debouncer.run(() {
-          myBottomSnackBar(
-            context,
-            content: "Ссылка некорректная",
-            view: ViewSnackBar.error,
-          );
-        });
-      }
+      widget.appCallback(null);
+      _debouncer.run(() {
+        myBottomSnackBar(
+          context,
+          content: "Ссылка некорректная",
+          view: ViewSnackBar.error,
+        );
+      });
     }
+  }
+
+  Future<void> onSend(url) async {
+    final AppIconModel app = await GetSiteInfo.buUrl(url);
+
+    widget.appCallback(app);
+    _focusNode.unfocus();
   }
 
   @override
@@ -66,6 +73,7 @@ class _TextFieldAddAppState extends State<TextFieldAddApp> {
       padding: const EdgeInsets.all(MyUIConst.vPadding),
       child: TextField(
         focusNode: _focusNode,
+        autocorrect: false,
         key: const Key('fieldText'),
         keyboardType: TextInputType.url,
         controller: _textController,
@@ -77,7 +85,7 @@ class _TextFieldAddAppState extends State<TextFieldAddApp> {
         style: MyTextStyle.I.textStyle(
           fontSize: MyUIConst.textSizeH4,
         ),
-        onSubmitted: onValidateUrl,
+        onSubmitted: (url) => onSend(url),
         onChanged: onValidateUrl,
         decoration: MyTextFieldStyle.I.myStyleTextField(
           context,
