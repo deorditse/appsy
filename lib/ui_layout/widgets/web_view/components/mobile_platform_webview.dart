@@ -1,35 +1,32 @@
 import 'package:appsy/ui_layout/app/style/colors.dart';
+import 'package:appsy/ui_layout/shared/ui/loading/my_circular_progress_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-// Import for Android features.
 import 'package:webview_flutter_android/webview_flutter_android.dart';
-
-// Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-Widget webView({
-  required String path,
-}) {
-  return _WebViewWidget(path: path);
-}
-
 //чтобы открывать окно по гиперссылке в новом окне
-class _WebViewWidget extends StatefulWidget {
-  _WebViewWidget({required this.path, super.key});
+class WebView extends StatefulWidget {
+  const WebView({
+    super.key,
+    required this.url,
+    required this.onDeactivate,
+  });
 
-  String path;
+  final String url;
+  final Function(String url)? onDeactivate;
 
   @override
-  State<_WebViewWidget> createState() => _WebViewWidgetState();
+  State<WebView> createState() => _WebViewState();
 }
 
-class _WebViewWidgetState extends State<_WebViewWidget> {
+class _WebViewState extends State<WebView> {
   double _progressVal = 0.0;
   late final WebViewController _controller;
 
-  late final WebViewCookieManager cookieManager = WebViewCookieManager();
+  // late final WebViewCookieManager cookieManager = WebViewCookieManager();
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -60,9 +57,14 @@ class _WebViewWidgetState extends State<_WebViewWidget> {
                 _progressVal = progress.toDouble() / 100;
               });
             },
+            onPageFinished: (finish) {
+              setState(() {
+                isLoading = false;
+              });
+            },
           ),
         )
-        ..loadRequest(Uri.parse(widget.path));
+        ..loadRequest(Uri.parse(widget.url));
     }
     super.initState();
   }
@@ -78,30 +80,28 @@ class _WebViewWidgetState extends State<_WebViewWidget> {
             color: MyColors.primary,
           ),
         Expanded(
-          child: WebViewWidget(
-            controller: _controller,
-          ),
+          child: isLoading
+              ? Center(child: MyCircularProgressIndicator())
+              : WebViewWidget(controller: _controller),
         ),
       ],
     );
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Positioned.fill(
-          child: WebViewWidget(
-            controller: _controller,
-          ),
-        ),
-        if (_progressVal <= 0.8)
-          Align(
-            alignment: Alignment.topCenter,
-            child: LinearProgressIndicator(
-              minHeight: 4,
-              value: _progressVal,
-              color: MyColors.primary,
-            ),
-          ),
-      ],
-    );
+  }
+
+  @override
+  Future<void> deactivate() async {
+    if (widget.onDeactivate != null) {
+      final url = await _controller.currentUrl();
+      if ((url ?? "").isNotEmpty) {
+        widget.onDeactivate!(url!);
+      }
+    }
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _controller.clearCache();
+    super.dispose();
   }
 }

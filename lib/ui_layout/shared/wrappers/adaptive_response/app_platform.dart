@@ -13,6 +13,9 @@ enum CustomPlatform {
 }
 
 class AppPlatform {
+  const AppPlatform._();
+
+  factory AppPlatform() => AppPlatform._();
   static const Map<String, CustomPlatform> _platformMap = {
     'linux': CustomPlatform.linux,
     'macos': CustomPlatform.macos,
