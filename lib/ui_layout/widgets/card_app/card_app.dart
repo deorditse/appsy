@@ -1,3 +1,4 @@
+import 'package:appsy/ui_layout/app/style/colors.dart';
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/ui/image/my_image.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
@@ -23,24 +24,35 @@ class CardApp extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.all(8),
-            child: Hero(
-              tag: app.name,
-              child: Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
-                child: MyImage(
-                  // width: double.maxFinite,
-                  // height: double.maxFinite,
-                  imageUrl:
-                      app.iconPath ?? "assets/icons/menu_bottom/projects.svg",
-                  fit: BoxFit.cover,
-                  placeholder: Container(),
+          Flexible(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Hero(
+                tag: app.name,
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: MyImage(
+                    // width: double.maxFinite,
+                    // height: double.maxFinite,
+                    imageUrl:
+                        app.iconPath ?? "assets/icons/menu_bottom/projects.svg",
+                    fit: BoxFit.cover,
+                    placeholder: Card(
+                      color: Theme.of(context).disabledColor,
+                      child: Icon(
+                        Icons.hide_image_outlined,
+                        size: 40,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
-import 'package:appsy/ui_layout/app/style/colors.dart';
+import 'package:appsy/ui_layout/shared/ui/dialog/my_snacbar.dart';
 import 'package:appsy/ui_layout/shared/utils/debounce.dart';
+import 'package:appsy/ui_layout/shared/utils/get_site_info.dart';
 import 'package:models/index.dart';
 import 'package:flutter/material.dart';
 import 'package:appsy/ui_layout/app/style/text_field_style.dart';
@@ -27,17 +28,35 @@ class _TextFieldAddAppState extends State<TextFieldAddApp> {
   final TextEditingController _textController = TextEditingController();
   static final _debouncer = const Debouncer(milliseconds: 300);
 
+  final FocusNode _focusNode = FocusNode();
+
   void onValidateUrl(String text) {
     final bool _validURL = Uri.parse(text).isAbsolute;
 
     if (_validURL) {
-      _debouncer.run(() {
+      _debouncer.run(() async {
         if (text.isNotEmpty) {
-          widget.appCallback(_apps.elementAt(1));
+          final AppIconModel app = await GetSiteInfo.buUrl(text);
+
+          widget.appCallback(app);
+          _focusNode.unfocus();
         }
       });
     } else {
-      widget.appCallback(null);
+      if (text.isEmpty) {
+        _textController.clear();
+        setState(() {});
+        widget.appCallback(null);
+      } else {
+        widget.appCallback(null);
+        _debouncer.run(() {
+          myBottomSnackBar(
+            context,
+            content: "Ссылка некорректная",
+            view: ViewSnackBar.error,
+          );
+        });
+      }
     }
   }
 
@@ -46,6 +65,7 @@ class _TextFieldAddAppState extends State<TextFieldAddApp> {
     return Padding(
       padding: const EdgeInsets.all(MyUIConst.vPadding),
       child: TextField(
+        focusNode: _focusNode,
         key: const Key('fieldText'),
         keyboardType: TextInputType.url,
         controller: _textController,
@@ -57,21 +77,18 @@ class _TextFieldAddAppState extends State<TextFieldAddApp> {
         style: MyTextStyle.I.textStyle(
           fontSize: MyUIConst.textSizeH4,
         ),
+        onSubmitted: onValidateUrl,
         onChanged: onValidateUrl,
         decoration: MyTextFieldStyle.I.myStyleTextField(
           context,
           hintText: "Вставьте url нужного сервиса",
           suffixIcon: _textController.text.isNotEmpty
               ? IconButton(
-                  onPressed: () {
-                    _textController.clear();
-                    setState(() {});
-                    // widget.appCallback(_apps.elementAt(1));
-                  },
+                  onPressed: () => onValidateUrl(""),
                   icon: Icon(
                     FontAwesomeIcons.close,
                     size: 20,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).textTheme.bodySmall!.color!,
                   ),
                 )
               : null,
@@ -86,27 +103,3 @@ class _TextFieldAddAppState extends State<TextFieldAddApp> {
     super.dispose();
   }
 }
-
-final Set<AppIconModel> _apps = {
-  AppIconModel(
-    name: "Яндекс почта",
-    iconPath:
-        "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",
-    url: "https://mail.yandex.ru/?uid=321242487#inbox",
-    id: "Яндекс почта",
-  ),
-  AppIconModel(
-    name: "Google",
-    id: "Google",
-    iconPath:
-        "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",
-    url: "https://www.google.ru/?hl=ru",
-  ),
-  AppIconModel(
-    id: "Test",
-    name: "Test",
-    iconPath:
-        "https://mediarost.com/media/com_jbusinessdirectory/pictures/companies/52/cropped-1584357458.jpeg",
-    url: "https://mail.yandex.ru/?uid=321242487#inbox",
-  ),
-};

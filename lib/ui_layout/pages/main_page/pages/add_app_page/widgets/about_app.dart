@@ -1,3 +1,5 @@
+import 'package:appsy/ui_layout/app/style/text_field_style.dart';
+import 'package:appsy/ui_layout/app/style/text_style.dart';
 import 'package:appsy/ui_layout/shared/const/ui_const.dart';
 import 'package:appsy/ui_layout/shared/ui/buttons/my_button.dart';
 import 'package:appsy/ui_layout/shared/ui/buttons/my_text_button.dart';
@@ -10,7 +12,7 @@ import 'package:models/index.dart';
 import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
 import 'package:flutter/material.dart';
 
-class AboutApp extends StatelessWidget {
+class AboutApp extends StatefulWidget {
   const AboutApp({
     super.key,
     required this.app,
@@ -18,10 +20,30 @@ class AboutApp extends StatelessWidget {
 
   final AppIconModel app;
 
+  @override
+  State<AboutApp> createState() => _AboutAppState();
+}
+
+class _AboutAppState extends State<AboutApp> {
   void addApp(context) {
-    BlocProvider.of<MainBloc>(context).add(MainEvent.addApp(app: app));
+    BlocProvider.of<MainBloc>(context).add(MainEvent.addApp(
+        app: widget.app.copyWith(
+      name: _nameController.text,
+      url: _urlController.text,
+    )));
 
     GoRouter.of(context).pop();
+  }
+
+  late final TextEditingController _nameController;
+  late final TextEditingController _urlController;
+
+  @override
+  void initState() {
+    _nameController = TextEditingController(text: widget.app.name);
+    _urlController = TextEditingController(text: widget.app.url);
+
+    super.initState();
   }
 
   @override
@@ -36,28 +58,36 @@ class AboutApp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CardApp(
-                  app,
+                  widget.app,
                   isOnlyIcon: true,
                   isMobile: isMobile,
                   isDesktop: isDesktop,
                   onTap: () {},
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: MyUIConst.hlPadding,
-                    vertical: MyUIConst.vPadding / 1.1,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      MyText(
-                        app.name,
-                      ),
-                      MyText(
-                        app.url,
-                      ),
-                    ],
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: MyUIConst.hlPadding,
+                      vertical: MyUIConst.vPadding / 1.1,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextField(
+                          controller: _nameController,
+                          style: MyTextStyle.I.textStyle(),
+                          decoration: MyTextFieldStyle.I
+                              .myStyleTextFieldWithoutBorder(context),
+                        ),
+                        TextField(
+                          controller: _urlController,
+                          decoration: MyTextFieldStyle.I
+                              .myStyleTextFieldWithoutBorder(context),
+                          style: MyTextStyle.I.textStyle(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -65,6 +95,7 @@ class AboutApp extends StatelessWidget {
           ),
           MyTextButton(
             isInfinityWidth: true,
+            fontSizeNew: MyUIConst.textSizeH5,
             text: "Добавить в меню приложений",
             onPressed: () => addApp(context),
           ),

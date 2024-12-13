@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/about_app.dart';
+import 'widgets/recommendations.dart';
 import 'widgets/text_field.dart';
 
 class AddAppPage extends StatefulWidget {
@@ -28,16 +29,17 @@ class _AddAppPageState extends State<AddAppPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          MyUIConst.vSizeBox,
           TextFieldAddApp(
             appCallback: (newApp) => setState(() => _app = newApp),
           ),
           MyUIConst.vSizeBox,
-          if (_app != null) AboutApp(app: _app!),
+          AnimatedSize(
+            duration: Duration(milliseconds: 300),
+            child: _app != null ? AboutApp(app: _app!) : SizedBox.shrink(),
+          ),
           MyUIConst.vSizeBox,
-          MyText(
-            "Рекомендации",
-            fontSize: MyUIConst.textSizeH3,
-          )
+          Recommendations(),
         ],
       ),
     );

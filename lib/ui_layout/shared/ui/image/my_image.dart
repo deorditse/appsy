@@ -22,35 +22,41 @@ class MyImage extends StatelessWidget {
   final String? semanticsLabel;
   final Widget? placeholder;
 
+  static const Icon _iconError = Icon(Icons.error);
+
   @override
   Widget build(BuildContext context) {
-    return imageUrl.startsWith('http')
-        ? CachedNetworkImage(
-            imageUrl: imageUrl,
-            height: height,
-            width: width,
-            color: color,
-            fit: fit ?? BoxFit.contain,
-            placeholder: (context, url) =>
-                placeholder ?? const MyCircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          )
-        : imageUrl.contains('.svg')
-            ? SvgPicture.asset(
-                imageUrl,
-                fit: fit ?? BoxFit.contain,
-                height: height,
-                width: width,
-                color: color,
-                semanticsLabel: semanticsLabel,
-              )
-            : Image.asset(
-                imageUrl,
-                fit: fit ?? BoxFit.contain,
-                height: height,
-                width: width,
-                color: color,
-                semanticLabel: semanticsLabel,
-              );
+    if (imageUrl.isEmpty) return placeholder ?? _iconError;
+
+    if (imageUrl.startsWith('http')) {
+      return CachedNetworkImage(
+        imageUrl: imageUrl,
+        height: height,
+        width: width,
+        color: color,
+        fit: fit ?? BoxFit.contain,
+        placeholder: (context, url) =>
+            placeholder ?? const MyCircularProgressIndicator(),
+        errorWidget: (context, url, error) => _iconError,
+      );
+    }
+    if (imageUrl.contains('.svg')) {
+      return SvgPicture.asset(
+        imageUrl,
+        fit: fit ?? BoxFit.contain,
+        height: height,
+        width: width,
+        color: color,
+        semanticsLabel: semanticsLabel,
+      );
+    }
+    return Image.asset(
+      imageUrl,
+      fit: fit ?? BoxFit.contain,
+      height: height,
+      width: width,
+      color: color,
+      semanticLabel: semanticsLabel,
+    );
   }
 }

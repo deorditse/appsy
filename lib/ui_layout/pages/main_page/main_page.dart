@@ -18,15 +18,11 @@ final GlobalKey<ScaffoldState> scaffoldMainPageKey = GlobalKey(
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-  Future<void> callbackTopRefreshIndicator(BuildContext context) async {
-    BlocProvider.of<MainBloc>(context).add(MainEvent.getAllApps());
-  }
-
   @override
   Widget build(BuildContext context) {
     return MyCupertinoSkeletonPage(
+      isRefresh: false,
       pinnedAppBar: false,
-      callbackTopRefreshIndicator: () => callbackTopRefreshIndicator(context),
       drawer: Drawer(),
       scaffoldKey: scaffoldMainPageKey,
       actionsAppBar: Hero(

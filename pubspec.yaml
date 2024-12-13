@@ -59,6 +59,7 @@ flutter:
     - assets/icons/
     - assets/icons/status/
     - assets/images/
+    - assets/logo/
 
   fonts:
     - family: SBSansText
@@ -77,16 +78,17 @@ flutter:
 #flutter pub run flutter_native_splash:create
 flutter_native_splash:
   #  background_image: 'assets_ai_giga/splash_screen/splash.png'
-  image: 'assets/splash_screen/splash-robot.png'
-  branding: 'assets/splash_screen/loading.png'
+#  image: 'assets/logo/splash-robot.png'
+#  branding: 'assets/logo/loading.png'
   color: "#181818"
   web_image_mode: center
   branding_mode: bottom
   fullscreen: true
 
+#flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/logo.jpg"
+  image_path: "assets/logo/icon-app.png"
   remove_alpha_ios: true
   min_sdk_android: 21

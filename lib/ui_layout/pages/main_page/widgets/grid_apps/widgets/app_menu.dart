@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:models/index.dart';
 import 'package:business_layout/index.dart';
 import 'package:appsy/ui_layout/app/style/colors.dart';
@@ -5,6 +6,7 @@ import 'package:appsy/ui_layout/shared/ui/text/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:focused_menu/modals.dart';
+import 'package:appsy/ui_layout/pages/routes.dart' as routes;
 
 class AppMenu {
   const AppMenu._();
@@ -18,20 +20,24 @@ class AppMenu {
       <FocusedMenuItem>[
         // Add Each FocusedMenuItem  for Menu Options
         FocusedMenuItem(
-            backgroundColor: MyColors.blackLight,
-            title: MyText("Open"),
-            trailingIcon: Icon(Icons.open_in_new),
-            onPressed: () {}),
-        FocusedMenuItem(
-            backgroundColor: MyColors.blackLight,
-            title: MyText("Share"),
-            trailingIcon: Icon(Icons.share),
-            onPressed: () {}),
-        FocusedMenuItem(
-            backgroundColor: MyColors.blackLight,
-            title: MyText("Favorite"),
-            trailingIcon: Icon(Icons.favorite_border),
-            onPressed: () {}),
+          backgroundColor: MyColors.blackLight,
+          title: MyText("Open"),
+          trailingIcon: Icon(Icons.open_in_new),
+          onPressed: () {
+            GoRouter.of(context).goNamed(routes.addApp);
+          },
+        ),
+        // FocusedMenuItem(
+        //     backgroundColor: MyColors.blackLight,
+        //     title: MyText("Share"),
+        //     trailingIcon: Icon(Icons.share),
+        //     onPressed: () {},),
+        // FocusedMenuItem(
+        //   backgroundColor: MyColors.blackLight,
+        //   title: MyText("Favorite"),
+        //   trailingIcon: Icon(Icons.favorite_border),
+        //   onPressed: () {},
+        // ),
         FocusedMenuItem(
           backgroundColor: MyColors.blackLight,
           title: MyText("Delete"),
